@@ -1,8 +1,9 @@
 const axios = require("axios");
 const baseUrl = "https://how-to-barao.firebaseio.com/";
+const auth = "?auth=AUTH_KEY";
 
 const list = async key => {
-  const content = await axios.get(`${baseUrl}${key}.json`);
+  const content = await axios.get(`${baseUrl}${key}.json${auth}`);
   if (content.data) {
     const objects = Object.keys(content.data).map(key => {
       return {
@@ -16,12 +17,12 @@ const list = async key => {
 };
 
 const apagar = async (key, id) => {
-  await axios.delete(`${baseUrl}${key}/${id}.json`);
+  await axios.delete(`${baseUrl}${key}/${id}.json${auth}`);
   return true;
 };
 
 const get = async (key, id) => {
-  const content = await axios.get(`${baseUrl}${key}/${id}.json`);
+  const content = await axios.get(`${baseUrl}${key}/${id}.json${auth}`);
   return {
     id,
     ...content.data
@@ -29,12 +30,12 @@ const get = async (key, id) => {
 };
 
 const update = async (key, id, body) => {
-  await axios.put(`${baseUrl}${key}/${id}.json`, body);
+  await axios.put(`${baseUrl}${key}/${id}.json${auth}`, body);
   return true;
 };
 
 const post = async (key, body) => {
-  await axios.post(`${baseUrl}${key}.json`, body);
+  await axios.post(`${baseUrl}${key}.json${auth}`, body);
   return true;
 };
 
